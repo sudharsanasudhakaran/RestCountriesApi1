@@ -9,7 +9,7 @@ using RestCountriesApi1.Models;
 namespace RestCountriesApi1.Migrations
 {
     [DbContext(typeof(CountriesDatabaseContext))]
-    [Migration("20200724191830_InitialMigration")]
+    [Migration("20200725064829_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
