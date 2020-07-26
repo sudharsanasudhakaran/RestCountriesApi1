@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestCountriesApi1.Data;
@@ -9,6 +10,7 @@ using RestCountriesApi1.Models;
 
 namespace RestCountriesApi1.Controllers
 {
+    [EnableCors(origins: "http://https://sudharsana-countriesrestapi.azurewebsites.net", headers: "*", methods: "*")]
     [Route("api/[controller]")]
     [ApiController]
     public class CountriesController : ControllerBase
@@ -19,7 +21,7 @@ namespace RestCountriesApi1.Controllers
         {
             dataConn = new DataSource(context);
         }
-        [HttpGet("Countries")]
+        [HttpGet("all")]
         public List<Countries> countries()
         {
             return dataConn.countries();

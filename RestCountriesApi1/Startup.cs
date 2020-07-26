@@ -18,6 +18,8 @@ namespace RestCountriesApi1
 {
     public class Startup
     {
+        private readonly string MyAllowSpecificOrigins;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +30,15 @@ namespace RestCountriesApi1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("https://sudharsana-countriesrestapi.azurewebsites.net/api/Countries/Countries",
+                                                          "https://sudharsana-countriesrestapi.azurewebsites.net");
+                                  });
+            });
             services.AddControllers();
             var connectionString = Configuration["ConnectionStrings:CountriesConnectionString"];
 
@@ -52,7 +63,9 @@ namespace RestCountriesApi1
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Countries REST API");
             });
-                app.UseRouting();
+            app.UseRouting();
+            app.UseCors();
+
 
             app.UseAuthorization();
 
